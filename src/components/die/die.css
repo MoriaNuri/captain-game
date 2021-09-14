@@ -1,0 +1,59 @@
+/* Styling each Die */
+.Die{
+    font-size:10em;
+    /* padding:0.25em; */
+    color:#EDEDED;
+    /* -webkit-box-shadow: inset 2px -1px 16px 1px #000000; 
+box-shadow: inset 2px -1px 16px 1px #000000; */
+  }
+
+    
+  /* Applying Animation */
+  .Die-shaking{
+    animation-name:wobble;
+    animation-duration: 1s;
+  }
+    
+  /* Setting Animation effect to the 
+     dice using css keyframe */
+  @keyframes wobble {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    15% {
+      transform: translate3d(-25%, 0, 0) 
+                 rotate3d(0, 0, 1, -5deg);
+    }
+    30% {
+      transform: translate3d(20%, 0, 0) 
+                 rotate3d(0, 0, 1, 3deg);
+    }
+    45% {
+      transform: translate3d(-15%, 0, 0)
+                 rotate3d(0, 0, 1, -3deg);
+    }
+    60% {
+      transform: translate3d(10%, 0, 0) 
+                 rotate3d(0, 0, 1, 2deg);
+    }
+    75% {
+      transform: translate3d(-5%, 0, 0) 
+                 rotate3d(0, 0, 1, -1deg);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @media (max-width:950px) {
+    
+    .Die {
+       
+        width: 100%;
+        height: 20vh;
+        /* bottom: 0; */
+        font-size: 7rem;
+        margin-left: 30%;
+        margin-top: 15%;
+    }
+  }

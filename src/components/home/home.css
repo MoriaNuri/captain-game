@@ -1,0 +1,87 @@
+
+
+@keyframes cinematic {
+    from {
+      transform: translateZ(-200px) rotateY(30deg) translateY(50vh);
+    }
+    to {
+      transform: translateZ(-100px) rotateY(-30deg) translateY(-100%)
+        translateY(50vh);
+    }
+  }
+
+
+*{
+    box-sizing: border-box;
+}
+.home-page{
+  height: 94vh;
+  align-items: center;
+  text-align: center;
+
+}
+.home-page h1{
+    position: absolute;
+    top:400px;
+    margin: 0 20%;
+    font-size:6rem;
+    color:#FFCC00 ;
+    z-index: 2;
+    animation-name: cinematic;
+    transform-origin: top center;
+    transform-style: preserve-3d;
+    animation: inherit;
+    transition: 5s;
+}
+.home-page img{
+    margin-top:40px;
+}
+.island{
+    position: absolute;
+    top: 280px;
+    margin: 0 20%;
+    z-index: 1;
+}
+.pirate{
+  transition: 5s;
+}
+
+.pirate:hover{
+  transition: 5s;
+  width: 200px;
+  height: 290px;
+
+}
+
+.start-btn{
+  background-color:#FFCC00 ;
+  border-radius: 40px;
+  padding: 1rem 6rem;
+  position: absolute;
+  bottom: 250px;
+  left: 25%;
+  color:#FFFFFF;
+  transition:  2s;
+  font-size: 3rem;
+
+}
+
+.start-btn:hover{
+  background-color:#473f1b ;
+  cursor: pointer;
+
+}
+.start-container{
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width:900px){
+  .start-btn{
+    left: 10%;
+  }
+  .home-page h1{
+    font-size:5rem;
+}
+
+}
