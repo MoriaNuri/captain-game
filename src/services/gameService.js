@@ -1,4 +1,4 @@
-import config from '../config';
+// import config from '../config';
 import httpService from '../services/httpService';
 import Bottle from '../enitities/items/bottle';
 import Dragon from '../enitities/items/dragon';
@@ -12,15 +12,16 @@ import Wave from '../enitities/items/wave';
 import Player from '../player';
 
 // const rollDiceUrl = `${config.serverAdress}/game/roll`;
-const getLastRollUrll = `${config.serverAdress}/game/lastRoll`;
+// const getLastRollUrll = `${config.serverAdress}/game/lastRoll`;
 
-const entities = [];
 const entitiesMap = {};
 
 
-let worldCtx = null;
-let worldCanvas = null;
-let windowCtx = null;
+var funnySentence = []
+var entities = [];
+var worldCtx = null;
+var worldCanvas = null;
+var windowCtx = null;
 
 const worldDimensions = {
     width: 3239,
@@ -34,7 +35,8 @@ const player = new Player(new Pirate({
 export const GameService = {
     restartGame,
     getWorldCameraLocation,
-    roll
+    roll,
+    getSentences
 }
 
 function restartGame(ctx) {
@@ -42,8 +44,9 @@ function restartGame(ctx) {
     console.log('ctx from swrvice game', windowCtx);
     _restartWorldCtx();
     _restartEntities();
-    _setPlayerLastLocation();
+    // _setPlayerLastLocation();
     window.requestAnimationFrame(animationFrameCallback);
+   setFunnySentences()
 
 }
 
@@ -58,57 +61,8 @@ function getWorldCameraLocation() {
 
 function roll(cubeResult) {
     console.log(cubeResult);
-
-    // let num= rollD6()
-    // let cubeResultNumber = 'one'
-    // switch (cubeResult) {
-    //     case 'one':
-    //         cubeResult === 1;
-    //         break;
-    //     case 'two':
-    //         cubeResult === 2;
-    //         break;
-    //     case 'three':
-    //         cubeResult === 3;
-    //         break;
-    //     case 'four':
-    //         cubeResult === 4;
-    //         break;
-    //     case 'five':
-    //         cubeResult === 5;
-    //         break;
-    //     case 'six':
-    //         cubeResult === 6;
-    //         break;
-    //         // default:1
-
-    // }
-    // if (cubeResult === 'one') return 1
-    // if (cubeResult === 'two') return 2
-    // if (cubeResult === 'three') return 3
-    // if (cubeResult === 'four') return 4
-    // if (cubeResult === 'five') return 5
-    // if (cubeResult === 'six') return 6
-
-
     player.entity.setDestinationEntity(entitiesMap[cubeResult]);
-
-
-    // httpService.post('roll').then(diceRoll => {
-    //     console.log(diceRoll);
-    //     player.entity.setDestinationEntity(entitiesMap[diceRoll.data.number]);
-    // })
-    // .catch(err => {
-    //     console.log(err);
-    // })
-
-
 }
-
-// function rollD6() {
-//     return Math.floor((Math.random() * (7 - 1) + 1));
-// }
-
 
 
 function _setWindowCtx(ctx) {
@@ -121,7 +75,6 @@ function _restartWorldCtx() {
     worldCtx.canvas.width = worldDimensions.width;
     worldCtx.canvas.height = worldDimensions.height;
 };
-
 
 
 function animationFrameCallback() {
@@ -157,7 +110,6 @@ function clearCanvas() {
     windowCtx.fillRect(0, 0, windowCtx.canvas.width, windowCtx.canvas.height);
     worldCtx.clearRect(0, 0, worldDimensions.width, worldDimensions.height);
 };
-
 
 
 function _setBackground() {
@@ -201,23 +153,37 @@ function _setEntities() {
 };
 
 
+// function _setPlayerLastLocation() {
+//     console.log(getLastRollUrll);
+// httpService.get(getLastRollUrll).then(value => {
+//     const lastRollValue = value.data.dice_result;
+//     if (lastRollValue) {
+//         player.entity.setLocation(entities[lastRollValue].getLocation());
+//     }
+// })
+//     .catch(err => {
+//         console.log(err);
+//     });
+// }
 
-function _setPlayerLastLocation() {
-    httpService.get(getLastRollUrll).then(value => {
-        const lastRollValue = value.data.dice_result;
-        if (lastRollValue) {
-            player.entity.setLocation(entities[lastRollValue].getLocation());
-        }
-    })
-        .catch(err => {
-            console.log(err);
-        });
+async function setFunnySentences() {
+    
+    try {
+        console.log('hiiiiiiiiiiiiiiiiii');
+        funnySentence= await httpService.get('sentences')
+        console.log(funnySentence,'from service');
+    } catch (err) {
+        console.log(err);
+
+    }
+}
+
+function getSentences(){
+    return funnySentence
 }
 
 
-// function destroy() {
-//     playerArrivedAtDestinationSubscription.unsubscribe();
-// }
+
 
 
 

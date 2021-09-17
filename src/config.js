@@ -1,5 +1,5 @@
-const Config = {
-    serverAdress: '',
-}
+// const Config = {
+//     serverAdress: '',
+// }
 
-export default Config;
+// export default Config;

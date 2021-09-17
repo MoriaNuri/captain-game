@@ -1,0 +1,32 @@
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(27, 27, 27);
+    border: 2px solid #fff;
+    background-color: rgb(223, 223, 223);
+    width: 700px;
+    height: 500px;
+    box-shadow: 0 0 2px 2px rgb(138, 137, 137);
+  }
+
+  .close-modal-btn{
+    width: 10% ;
+    height: 10% ;
+    margin: 0 auto ;
+    text-align: center;
+    border: 2px solid #000 ;
+    background-color:unset ;
+    border-radius: 5px ;
+    cursor: pointer ;
+    transition: 0.3s ;
+    text-transform: uppercase ;
+    font-weight: 600 ;
+    color:black ;
+    padding: 10px;
+  }

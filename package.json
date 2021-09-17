@@ -25,7 +25,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && move build ../backend/public",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -47,7 +47,7 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:2000",
+
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4"
   }

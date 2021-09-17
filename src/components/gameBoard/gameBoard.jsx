@@ -16,6 +16,7 @@ const GameBoard = () => {
       ctx.canvas.height = window.innerHeight;
 
       GameService.restartGame(ctx);
+     
 
       window.addEventListener('resize', () => {
       ctx.canvas.width = window.innerWidth;
@@ -59,7 +60,13 @@ const GameBoard = () => {
 
 
     return (
-        <canvas ref={canvasRef} className="canvas" width='100%' height='100%'></canvas>
+      <section>
+
+      
+        <canvas ref={canvasRef} className="canvas" width='100%' height='100%'> </canvas>
+        <div className="circle"></div>
+      </section>
+      
     )
 }
 
