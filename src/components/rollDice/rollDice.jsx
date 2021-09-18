@@ -3,86 +3,99 @@ import React, { Component } from 'react'
 import GameService from '../../services/gameService';
 import UtilService from '../../services/utilService';
 import './rollDice.css'
-import Die from '../die/die'
+import Dice from '../dice/dice'
 import Modal from '../modal/modal'
 
 class RollDice extends Component {
 
-  
-
   static defaultProps = {
-    sides: ['one', 'two', 'three',
-      'four', 'five', 'six']
+    sides: ['one', 'two', 'three', 'four', 'five', 'six']
+  }
+
+  state = {
+    dice: 'one',
+    rolling: false,
+    isOpen: false,
+    msg: ''
+
   }
 
   constructor(props) {
     super(props)
 
-    this.state = {
-      die1: 'one',
-      rolling: false,
-      isOpen: false,
-      msg: ''
-    }
+    // this.state = {
+    //   dice: '',
+    //   rolling: false,
+    //   isOpen: false,
+    //   msg: ''
+    // }
     this.OnRoll = this.OnRoll.bind(this)
   }
 
   OnRoll() {
     const { sides } = this.props
+    const randomSideIndex = UtilService.getRandomIntInclusive(0, 5)
+    // console.log(randomSideIndex,'randomSideIndex');
+    const randomSide = sides[randomSideIndex]
+    console.log(randomSide, 'randomSide');
     this.setState({
-      // Changing state upon click
-      die1: sides[Math.floor(Math.random() * sides.length)],
-      rolling: true
+      dice: randomSide,
+      rolling: true, 
     })
 
-    // Start timer of one sec when rolling start
     setTimeout(() => {
       this.setState({ rolling: false })
     }, 1000)
 
-    console.log('state', this.state.die1);
-
-    switch (this.state.die1) {
+    switch (randomSide) {
       case 'one':
-        GameService.roll(1);
-        this.gameOver()
+        GameService.movePlayer(1);
+        GameService.saveLog(1, Date.now());
+        this.showMsg('Game over!')
         break;
+
       case 'two':
-        GameService.roll(2);
+        GameService.movePlayer(2);
         let num = this.getRandomNum()
         console.log(num);
         if (num <= 0.5) {
-          setTimeout(() => {
-            this.setState({ isOpen: true, msg: ' The rum spoiled and turned into vinegar! GameOver!!' })
-          }, 3)
+          this.showMsg(' The rum spoiled and turned into vinegar! GameOver!!')
+          GameService.saveLog(3, Date.now())
         }
-        else setTimeout(() => {
-          this.win()
-        }, 3)
+        else
+          this.showMsg('You Won!')
+        GameService.saveLog(2, Date.now())
 
         break;
+
       case 'three':
-        GameService.roll(3);
-        this.gameOver()
+        GameService.movePlayer(3);
+        this.showMsg('The dragon ate you! Game Over')
+        GameService.saveLog(1, Date.now())
 
         break;
+
       case 'four':
-        GameService.roll(4);
+        GameService.movePlayer(4);
+        GameService.saveLog(2, Date.now())
+        this.showMsg('You won!🤩')
+
         break;
+
       case 'five':
-        GameService.roll(5);
-        let sentences=GameService.getSentences();
-       let number= UtilService.getRandomArbitrary(0,sentences.length-1)
-       let sentence=sentences[number]
-       this.showMsg(sentence.description)
-
-
-
+        GameService.movePlayer(5);
+        let sentences = GameService.getSentences();
+        let number = UtilService.getRandomIntInclusive(0, sentences.length)
+        let sentence = sentences[number]
+        this.showMsg(sentence.description)
         break;
+
       case 'six':
-        GameService.roll(6);
+        GameService.movePlayer(6);
+        this.showMsg('You won! You came to the island and survived')
         break;
-      default: console.log(this.state.die1);;
+
+      default: console.log(this.state.dice);
     }
   }
 
@@ -90,43 +103,33 @@ class RollDice extends Component {
   getRandomNum = () => {
     return (Math.random() * (2 - 1));
   }
-  gameOver=()=>{
 
-      this.setState({ isOpen: true, msg: 'GameOver' })
-
-    console.log(this.state.isOpen);
+  showMsg = (msg) => {
+    this.setState({ isOpen: true, msg: msg })
   }
-  win=()=>{
-    setTimeout(() => {
-      this.setState({ isOpen: true, msg: 'You Win!!' })
-    }, 10)
-  }
-  showMsg=(msg)=>{
-    setTimeout(() => {
-      this.setState({ isOpen: true, msg: msg })
-    }, 10)
-  }
-
   closeModal = () => {
     this.setState({
       isOpen: false,
     });
-    console.log(this.state.isOpen);
   };
 
   render() {
     const handleBtn = this.state.rolling ?
       'RollDice-rolling' : ''
-    const { die1, rolling, msg, isOpen } = this.state
+    const { dice, rolling, msg, isOpen } = this.state
+    console.log('dice', dice);
+    console.log('rolling', rolling);
+    console.log('msg', msg);
+    console.log('isOpen', isOpen);
     return (
       <div className='RollDice'>
-        <button  className={handleBtn}
-          disabled={this.state.rolling || isOpen }
+        <button className={handleBtn}
+          disabled={this.state.rolling || isOpen}
           onClick={this.OnRoll}>
           {this.state.rolling ? 'Rolling' : 'Roll dice'}
         </button>
         <div className='RollDice-container'>
-          <Die face={die1} rolling={rolling} />
+          <Dice face={dice} rolling={rolling} />
           <Modal msg={msg} isOpen={isOpen} closeModal={this.closeModal} />
         </div>
       </div>

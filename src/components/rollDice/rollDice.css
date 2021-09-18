@@ -38,6 +38,7 @@ box-shadow: -1px 1px 0px 3px rgba(0,0,0,0.22);
     opacity:0.7
     }
 
+
     @media(max-width:1500px) {
        
         .RollDice button{
@@ -72,4 +73,3 @@ box-shadow: -1px 1px 0px 3px rgba(0,0,0,0.22);
 
         
     }
-    

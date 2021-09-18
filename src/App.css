@@ -33,3 +33,12 @@ html, body {
 input{
   text-align: center;
 }
+
+/* .collapse:not(.show){
+  display: block !important
+}
+.navber-nav{
+  display: flex !important;
+  flex-direction: row !important;
+
+} */

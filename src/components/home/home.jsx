@@ -10,11 +10,13 @@ class Home extends Component {
     render() {
         return (
             <div className="home-page" style={{ backgroundImage: `url(${Sea})` }}>
-                <h1 >תפוס את האוצר</h1>
+                {/* <h1 >תפוס את האוצר</h1> */}
                 <img className="pirate" src={Pirate} alt="" />
                 {/* <img className="island" src={Island} alt="" /> */}
                 <div className="start-container">
-                    <div className="start-btn">Start</div>
+                    {/* <div className="start-btn" ><NavLink to="/game">Play</NavLink></div> */}
+                    {/* <NavLink className="start-btn" to="/game">Play</NavLink> */}
+                    {/* <NavLink to="/game">Play</NavLink> */}
                 </div>
             </div>
             //      <div style={{ backgroundImage: `url(${background})` }}>

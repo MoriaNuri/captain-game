@@ -9,9 +9,9 @@ class Entity {
 
     destinationEntity = null;
 
-    // TODO: should it be an obserable? try and not waste too much time on it.
     arrivedAtDestinationEntity$ = new Subject();
     constructor(img, _location, _size) {
+
         this.img = this.prepareGraphics(img);
         this.size = _size;
         this.setLocation(_location);
@@ -20,10 +20,7 @@ class Entity {
     stepToDestinationEntity() {
         const xDifference = this.location.x - this.destinationEntity.location.x;
         const yDifference = this.location.y - this.destinationEntity.location.y;
-        /**The following if statements check whether the player need to travel in a certain axis (X or Y)
-         * If there is a need to tavel the statements will either add or substract 1 to the correlated axis and then return.
-         * (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign)
-         */
+        
         if (xDifference !== 0) {
             this.location.x -= (Math.sign(xDifference) * 5);
             return;
@@ -32,8 +29,7 @@ class Entity {
             this.location.y -= (Math.sign(yDifference) * 5);
             return;
         }
-        // TODO: a callback to RXJS or something that notifies that we have arrived
-        // We have arrived, let's mark the destinationEntity as null so we won't run redundant methods
+        
         this.arrivedAtDestinationEntity$.next(this.destinationEntity);
         this.destinationEntity = null;
     }
@@ -62,9 +58,6 @@ class Entity {
         return this.location;
     }
 
-    // setLocation(_location) {
-    //     return this.location = _location;
-    // }
 
     getSize() {
         return this.size;

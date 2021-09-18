@@ -11,7 +11,6 @@ import TressureIsland from '../enitities/items/island4';
 import Wave from '../enitities/items/wave';
 import Player from '../player';
 
-// const rollDiceUrl = `${config.serverAdress}/game/roll`;
 // const getLastRollUrll = `${config.serverAdress}/game/lastRoll`;
 
 const entitiesMap = {};
@@ -22,6 +21,7 @@ var entities = [];
 var worldCtx = null;
 var worldCanvas = null;
 var windowCtx = null;
+var logs = []
 
 const worldDimensions = {
     width: 3239,
@@ -35,18 +35,18 @@ const player = new Player(new Pirate({
 export const GameService = {
     restartGame,
     getWorldCameraLocation,
-    roll,
-    getSentences
+    movePlayer,
+    getSentences,
+    saveLog
 }
 
 function restartGame(ctx) {
     _setWindowCtx(ctx);
-    console.log('ctx from swrvice game', windowCtx);
     _restartWorldCtx();
     _restartEntities();
     // _setPlayerLastLocation();
     window.requestAnimationFrame(animationFrameCallback);
-   setFunnySentences()
+    setFunnySentences()
 
 }
 
@@ -59,9 +59,9 @@ function getWorldCameraLocation() {
 
 }
 
-function roll(cubeResult) {
-    console.log(cubeResult);
+function movePlayer(cubeResult) {
     player.entity.setDestinationEntity(entitiesMap[cubeResult]);
+
 }
 
 
@@ -126,7 +126,7 @@ function _setBackground() {
 };
 
 function _setEntities() {
-    entitiesMap[1] = new PirateIsland({
+    entitiesMap[1] = new PirateIsland({//creacte object 
         x: player.entity.getLocation().x + player.entity.getSize().width / 2,
         y: player.entity.getLocation().y + player.entity.getSize().height
     });
@@ -167,19 +167,40 @@ function _setEntities() {
 // }
 
 async function setFunnySentences() {
-    
+
     try {
-        console.log('hiiiiiiiiiiiiiiiiii');
-        funnySentence= await httpService.get('sentences')
-        console.log(funnySentence,'from service');
+        funnySentence = await httpService.get('sentences')
     } catch (err) {
         console.log(err);
 
     }
 }
 
-function getSentences(){
+function getSentences() {
     return funnySentence
+}
+
+function saveLog(action, timestamp) {
+   let logToSave = {
+        action,
+        timestamp,
+    }
+    logs.push(logToSave)
+    if (logs.length > 5) sendLogs(logs)
+
+
+
+}
+
+async function sendLogs(logs) {
+    try {
+       await httpService.post('logs',logs)
+        console.log('post logs');
+
+    } catch (err) {
+        console.log(err);
+
+    }
 }
 
 
