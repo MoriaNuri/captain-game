@@ -18,7 +18,7 @@ class Home extends Component {
                 <h1>Captain Game</h1>
                 <div className="start-container">
                     <div className="start-btn" onClick={this.OnGame}>
-                        Play
+                        Play 
                     </div>
                 </div>
             </div>
