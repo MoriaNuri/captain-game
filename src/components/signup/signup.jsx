@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
-import AuthService from '../../services/authService';
+// import AuthService from '../../services/authService';
 import { UserService } from '../../services/userService';
 import './signup.css';
 

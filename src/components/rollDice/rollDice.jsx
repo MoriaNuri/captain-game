@@ -92,6 +92,7 @@ class RollDice extends Component {
         GameService.movePlayer(6);
         this.showMsg('You won! You came to the island and survived')
         break;
+        default: console.log(randomSide);
     }
   }
 
