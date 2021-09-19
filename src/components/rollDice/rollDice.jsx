@@ -82,7 +82,7 @@ class RollDice extends Component {
       case 'five':
         GameService.movePlayer(5);
         let sentences = GameService.getSentences();
-        let randomSentence = UtilService.getRandomIntInclusive(0, sentences.length-1)
+        let randomSentence = UtilService.getRandomIntInclusive(0, (sentences.length-1))
         let sentence = sentences[randomSentence]
         this.showMsg(sentence.description)
         break;
