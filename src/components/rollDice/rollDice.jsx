@@ -5,6 +5,8 @@ import UtilService from '../../services/utilService';
 import './rollDice.css'
 import Dice from '../dice/dice'
 import Modal from '../modal/modal'
+import loss from '../../assets/audio/game-over.wav'
+import win from '../../assets/audio/winner.wav'
 
 class RollDice extends Component {
 
@@ -16,48 +18,44 @@ class RollDice extends Component {
     dice: 'one',
     rolling: false,
     isOpen: false,
-    msg: ''
+    msg: '',
+
 
   }
 
   constructor(props) {
     super(props)
-
-    // this.state = {
-    //   dice: '',
-    //   rolling: false,
-    //   isOpen: false,
-    //   msg: ''
-    // }
     this.OnRoll = this.OnRoll.bind(this)
   }
 
   OnRoll() {
     const { sides } = this.props
     const randomSideIndex = UtilService.getRandomIntInclusive(0, 5)
-    // console.log(randomSideIndex,'randomSideIndex');
     const randomSide = sides[randomSideIndex]
-    console.log(randomSide, 'randomSide');
     this.setState({
       dice: randomSide,
-      rolling: true, 
+      rolling: true,
     })
 
     setTimeout(() => {
       this.setState({ rolling: false })
     }, 1000)
 
+    let lossAudio = new Audio(loss)
+    let victoryAudio = new Audio(win)
+
     switch (randomSide) {
       case 'one':
         GameService.movePlayer(1);
         GameService.saveLog(1, Date.now());
-        this.showMsg('Game over!')
+        this.showMsg('You stay in the same place. Game over!')
+        lossAudio.play()
         break;
 
       case 'two':
+        victoryAudio.play()
         GameService.movePlayer(2);
         let num = this.getRandomNum()
-        console.log(num);
         if (num <= 0.5) {
           this.showMsg(' The rum spoiled and turned into vinegar! GameOver!!')
           GameService.saveLog(3, Date.now())
@@ -65,21 +63,20 @@ class RollDice extends Component {
         else
           this.showMsg('You Won!')
         GameService.saveLog(2, Date.now())
-
         break;
 
       case 'three':
+        lossAudio.play()
         GameService.movePlayer(3);
-        this.showMsg('The dragon ate you! Game Over')
+        this.showMsg('The dragon eat you! Game Over')
         GameService.saveLog(1, Date.now())
-
         break;
 
       case 'four':
+        victoryAudio.play()
         GameService.movePlayer(4);
         GameService.saveLog(2, Date.now())
-        this.showMsg('You won!🤩')
-
+        this.showMsg('You won!')
         break;
 
       case 'five':
@@ -91,11 +88,10 @@ class RollDice extends Component {
         break;
 
       case 'six':
+        victoryAudio.play()
         GameService.movePlayer(6);
         this.showMsg('You won! You came to the island and survived')
         break;
-
-      default: console.log(this.state.dice);
     }
   }
 
@@ -117,10 +113,6 @@ class RollDice extends Component {
     const handleBtn = this.state.rolling ?
       'RollDice-rolling' : ''
     const { dice, rolling, msg, isOpen } = this.state
-    console.log('dice', dice);
-    console.log('rolling', rolling);
-    console.log('msg', msg);
-    console.log('isOpen', isOpen);
     return (
       <div className='RollDice'>
         <button className={handleBtn}

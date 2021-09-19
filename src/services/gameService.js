@@ -1,4 +1,3 @@
-// import config from '../config';
 import httpService from '../services/httpService';
 import Bottle from '../enitities/items/bottle';
 import Dragon from '../enitities/items/dragon';
@@ -11,11 +10,7 @@ import TressureIsland from '../enitities/items/island4';
 import Wave from '../enitities/items/wave';
 import Player from '../player';
 
-// const getLastRollUrll = `${config.serverAdress}/game/lastRoll`;
-
 const entitiesMap = {};
-
-
 var funnySentence = []
 var entities = [];
 var worldCtx = null;
@@ -60,7 +55,7 @@ function getWorldCameraLocation() {
 }
 
 function movePlayer(cubeResult) {
-    player.entity.setDestinationEntity(entitiesMap[cubeResult]);
+    player.entity.setDestination(entitiesMap[cubeResult]);
 
 }
 
@@ -126,9 +121,10 @@ function _setBackground() {
 };
 
 function _setEntities() {
-    entitiesMap[1] = new PirateIsland({//creacte object 
-        x: player.entity.getLocation().x + player.entity.getSize().width / 2,
-        y: player.entity.getLocation().y + player.entity.getSize().height
+    entitiesMap[1] = new PirateIsland({
+      
+        x:250,
+        y: 250
     });
     entitiesMap[2] = new RumIsland({
         x: 1300,
@@ -139,8 +135,8 @@ function _setEntities() {
         y: 350
     });
     entitiesMap[4] = new TressureIsland({
-        x: 1300,
-        y: 640
+        x: 1500,
+        y: 740
     });
     entitiesMap[5] = new Bottle({
         x: 250,
@@ -152,27 +148,12 @@ function _setEntities() {
     });
 };
 
-
-// function _setPlayerLastLocation() {
-//     console.log(getLastRollUrll);
-// httpService.get(getLastRollUrll).then(value => {
-//     const lastRollValue = value.data.dice_result;
-//     if (lastRollValue) {
-//         player.entity.setLocation(entities[lastRollValue].getLocation());
-//     }
-// })
-//     .catch(err => {
-//         console.log(err);
-//     });
-// }
-
 async function setFunnySentences() {
 
     try {
         funnySentence = await httpService.get('sentences')
     } catch (err) {
         console.log(err);
-
     }
 }
 
@@ -195,17 +176,9 @@ function saveLog(action, timestamp) {
 async function sendLogs(logs) {
     try {
        await httpService.post('logs',logs)
-        console.log('post logs');
-
     } catch (err) {
         console.log(err);
-
     }
 }
-
-
-
-
-
 
 export default GameService;

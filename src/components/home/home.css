@@ -1,21 +1,6 @@
 
-
-@keyframes cinematic {
-    from {
-      transform: translateZ(-200px) rotateY(30deg) translateY(50vh);
-    }
-    to {
-      transform: translateZ(-100px) rotateY(-30deg) translateY(-100%)
-        translateY(50vh);
-    }
-  }
-
-
-*{
-    box-sizing: border-box;
-}
 .home-page{
-  height: 94vh;
+  height:100vh;
   align-items: center;
   text-align: center;
 
@@ -36,12 +21,7 @@
 .home-page img{
     margin-top:40px;
 }
-.island{
-    position: absolute;
-    top: 280px;
-    margin: 0 20%;
-    z-index: 1;
-}
+
 .pirate{
   transition: 5s;
 }
@@ -79,6 +59,7 @@
 @media (max-width:900px){
   .start-btn{
     left: 10%;
+    bottom:10%;
   }
   .home-page h1{
     font-size:5rem;

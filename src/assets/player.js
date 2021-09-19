@@ -4,8 +4,8 @@ export default class Player {
         window.playEntity = this._entity;
     }
 
-    setDestinationEntity(destinationEntity) {
-        this._entity.setDestinationEntity(destinationEntity);
+    setDestination(destinationEntity) {
+        this._entity.setDestination(destinationEntity);
     }
 
     get entity() {

@@ -10,24 +10,19 @@ const Login = props => {
     const history = useHistory();
     const name = useRef(null);
     const password = useRef(null);
-    // const isAdmin = useRef(null);
     const [errorMessage, setErrorMessage] = useState('')
-
 
     return (
         <div className="container">
             <div className="login-container">
                 <form action="login">
-                    {/* <div className="info"> */}
+                    <h1>Login</h1>
                     <div className="input-field col-12 col-md-6">
                         <input type="name" ref={name} placeholder="Name" className="name-input" />
                     </div>
                     <div className="input-field col-12 col-md-6">
                         <input type="password" ref={password} placeholder="Password" className="password-input" />
                     </div>
-                    {/* </div> */}
-                    {/* <input type="checkbox" className='is-admin-checkbox' ref={isAdmin} />
-                    <span className="checkbox-text">Dude, are you an admin?</span> */}
                     <NavLink to="/signup">Signup</NavLink>
                     <div className="buttons-container">
                         <div onClick={login} className="submission-button unselectable">
@@ -42,11 +37,8 @@ const Login = props => {
 
     function login() {
         const user = getUser();
-        console.log(user);
         UserService.login(user).then(res => {
             history.push('/game');
-            console.log(res);
-
         })
             .catch(err => {
                 setErrorMessage('Login failed')
@@ -60,7 +52,6 @@ const Login = props => {
         return {
             userName: name.current.value,
             password: password.current.value,
-            // isAdmin: + isAdmin.current.checked
         }
     }
 }

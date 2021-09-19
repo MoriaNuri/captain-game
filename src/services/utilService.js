@@ -1,13 +1,8 @@
 export const UtilService = {
-    getRandomArbitrary,
     getRandomIntInclusive
 }
 
 
-function getRandomArbitrary(min, max) {
-    return Math.random() * (max - min) + min;
-    
-}
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min);

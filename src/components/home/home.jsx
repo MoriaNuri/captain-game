@@ -2,26 +2,26 @@ import React, { Component } from 'react'
 import './home.css'
 import Sea from '.././../assets/imgs/sea.png'
 import Pirate from '.././../assets/imgs/pirate.png'
-// import Island from '.././../assets/imgs/island1.png'
-
-
 
 class Home extends Component {
+    constructor(props) {
+        super(props);
+        this.OnGame = this.OnGame.bind(this);
+    }
+    OnGame() {
+        this.props.history.push('/game');
+    }
     render() {
         return (
             <div className="home-page" style={{ backgroundImage: `url(${Sea})` }}>
-                {/* <h1 >תפוס את האוצר</h1> */}
                 <img className="pirate" src={Pirate} alt="" />
-                {/* <img className="island" src={Island} alt="" /> */}
+                <h1>Captain Game</h1>
                 <div className="start-container">
-                    {/* <div className="start-btn" ><NavLink to="/game">Play</NavLink></div> */}
-                    {/* <NavLink className="start-btn" to="/game">Play</NavLink> */}
-                    {/* <NavLink to="/game">Play</NavLink> */}
+                    <div className="start-btn" onClick={this.OnGame}>
+                        Play
+                    </div>
                 </div>
             </div>
-            //      <div style={{ backgroundImage: `url(${background})` }}>
-            //      Hello World
-            //    </div>
         )
     }
 }

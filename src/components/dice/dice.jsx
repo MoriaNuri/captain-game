@@ -1,22 +1,13 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import './dice.css'
 
 
-  
-class Die extends Component{
-
-  componentDidMount(){
-  }
-  
-  render(){
-    const {face, rolling} = this.props
-    console.log(this.props,'props from dice');
-      
-    // Using font awesome icon to show 
-    // the exactnumber of dots
+class Die extends Component {
+  render() {
+    const { face, rolling } = this.props
     return <i className={`Die fas fa-dice-${face}
-              ${rolling && 'Die-shaking'}`}/>
+              ${rolling && 'Die-shaking'}`} />
   }
 }
-  
+
 export default Die

@@ -3,14 +3,14 @@ import './modal.css'
 
 class Modal extends Component {
     render() {
-        const { msg, isOpen,closeModal } = this.props
+        const { msg, isOpen, closeModal } = this.props
         return (
             <section>
                 {isOpen && (
                     <div className="modal-container">
                         <h1>{msg}</h1>
                         <div className="close-modal-btn" onClick={closeModal}>
-                            X
+                            Close
                         </div></div>
                 )}
             </section>

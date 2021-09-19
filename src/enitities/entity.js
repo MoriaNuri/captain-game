@@ -9,15 +9,15 @@ class Entity {
 
     destinationEntity = null;
 
-    arrivedAtDestinationEntity$ = new Subject();
+    arrivedAtDestination$ = new Subject();
     constructor(img, _location, _size) {
 
-        this.img = this.prepareGraphics(img);
+        this.img = this.design(img);
         this.size = _size;
         this.setLocation(_location);
     }
 
-    stepToDestinationEntity() {
+    stepToDestination() {
         const xDifference = this.location.x - this.destinationEntity.location.x;
         const yDifference = this.location.y - this.destinationEntity.location.y;
         
@@ -30,13 +30,13 @@ class Entity {
             return;
         }
         
-        this.arrivedAtDestinationEntity$.next(this.destinationEntity);
+        this.arrivedAtDestination$.next(this.destinationEntity);
         this.destinationEntity = null;
     }
 
     stepIfRequired() {
         if (this.destinationEntity) {
-            this.stepToDestinationEntity();
+            this.stepToDestination();
         }
     }
 
@@ -48,7 +48,7 @@ class Entity {
         ctx.drawImage(this.img, this.location.x, this.location.y);
     }
 
-    prepareGraphics(img) {
+    design(img) {
         const image = document.createElement('img');
         image.src = img;
         return image;
@@ -69,7 +69,7 @@ class Entity {
         this.location.y = _location.y - (this.size.height / 2);
     }
 
-    setDestinationEntity(_destinationEntity) {
+    setDestination(_destinationEntity) {
         this.destinationEntity = _destinationEntity;
     }
 }

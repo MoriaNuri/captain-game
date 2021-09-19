@@ -1,0 +1,17 @@
+APP with login page:
+ <nav className="navbar navbar-expand-lg navbar-light bg-light">
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <ul className="navbar-nav">
+            <li className="nav-item"  href="#"><NavLink className="nav-link" to="/">Home</NavLink></li>
+            <li className="nav-item"><NavLink className="nav-link" to="/game">Game</NavLink></li>
+            <li className="nav-item"><NavLink className="nav-link" to="/login">Login</NavLink></li>
+          </ul>
+          </div>
+      </nav>
+ <Route path="/" exact component={Home}></Route>
+    <Route path="/game"  component={Game}></Route>
+    <Route path="/login"  component={Login}></Route>
+    <Route path="/signup"  component={Signup}></Route>
